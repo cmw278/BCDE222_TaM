@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaM", "Theseus and the Minotaur\TaM.csproj", "{FB6DF5FF-F3AE-41FA-82F8-CC9FF1B73055}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaM", "TaM\TaM.csproj", "{FB6DF5FF-F3AE-41FA-82F8-CC9FF1B73055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaMTests", "TaMTests\TaMTests.csproj", "{7E192480-7419-40A9-9E2A-5C82BD8B3340}"
 EndProject

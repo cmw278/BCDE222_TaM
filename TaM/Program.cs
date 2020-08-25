@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Theseus_and_the_Minotaur
+namespace TaM
 {
     class Program
     {

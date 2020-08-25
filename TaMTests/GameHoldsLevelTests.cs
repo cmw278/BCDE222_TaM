@@ -40,7 +40,7 @@ namespace TaMTests
             MakeEmptyGame();
             string expectedLevelName = "No levels loaded";
             string actualLevelName = game.CurrentLevelName;
-            Assert.AreSame(expectedLevelName, actualLevelName);
+            Assert.AreEqual(expectedLevelName, actualLevelName);
         }
 
         [TestMethod, TestCategory("0Levels")]
@@ -54,7 +54,7 @@ namespace TaMTests
         void MakeGameWithOneLevel()
         {
             game = new Game();
-            game.AddLevel("level 1", 2, 3, "doesnotmatter");
+            game.AddLevel("level 1", 3, 1, "0000 0001 0002 1011 1010 1110");
         }
 
         [TestMethod, TestCategory("1level")]
@@ -68,14 +68,14 @@ namespace TaMTests
         public void GameWithOneLevelHasHeightOfLevel()
         {
             MakeGameWithOneLevel();
-            Assert.AreEqual(3, game.LevelHeight);
+            Assert.AreEqual(1, game.LevelHeight);
         }
 
         [TestMethod, TestCategory("1level")]
         public void GameWithOneLevelHasWidthOfLevel()
         {
             MakeGameWithOneLevel();
-            Assert.AreEqual(2, game.LevelWidth);
+            Assert.AreEqual(3, game.LevelWidth);
         }
 
         [TestMethod, TestCategory("1level")]
@@ -97,9 +97,9 @@ namespace TaMTests
         void MakeGameWithThreeLevels()
         {
             game = new Game();
-            game.AddLevel("level 1", 1, 1, "doesnotmatter");
-            game.AddLevel("level 2", 2, 2, "doesnotmatter");
-            game.AddLevel("level 3", 3, 3, "doesnotmatter");
+            game.AddLevel("level 1", 3, 1, "0000 0001 0002 1011 1010 1110");
+            game.AddLevel("level 2", 3, 1, "0000 0001 0002 1011 1010 1110");
+            game.AddLevel("level 3", 3, 1, "0000 0001 0002 1011 1010 1110");
         }
 
         [TestMethod, TestCategory("3levels")]
@@ -115,7 +115,7 @@ namespace TaMTests
         public void GameWithThreeLevelsHasHeightOfLastLevel()
         {
             MakeGameWithThreeLevels();
-            Assert.AreEqual(3, game.LevelHeight);
+            Assert.AreEqual(1, game.LevelHeight);
         }
 
         [TestMethod, TestCategory("3levels")]
@@ -146,9 +146,9 @@ namespace TaMTests
             MakeGameWithThreeLevels();
             List<string> actualNames = game.LevelNames();
             List<string> expectedNames = new List<string>();
-            expectedNames.Add("level 1");
-            expectedNames.Add("level 2");
-            expectedNames.Add("level3");
+            expectedNames.Add("Level 1");
+            expectedNames.Add("Level 2");
+            expectedNames.Add("Level 3");
             Assert.AreSame(expectedNames, actualNames);
         }
 

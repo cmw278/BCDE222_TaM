@@ -1,0 +1,6 @@
+language: csharp
+solution: TaM.sln
+mono: none
+dotnet: 3.1.401
+scripts:
+  - dotnet restore

@@ -6,9 +6,9 @@
 
         int TheseusColumn { get; }
 
-        int MinotuarRow { get; }
+        int MinotaurRow { get; }
 
-        int MinitaurColumn { get; }
+        int MinotaurColumn { get; }
 
         int MoveCount { get; }
 

@@ -1,10 +1,11 @@
 ﻿namespace TaM
 {
-    enum Directions
+    public enum Directions
     {
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+        PAUSE
     }
 }

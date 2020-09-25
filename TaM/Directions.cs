@@ -5,6 +5,7 @@
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+        PAUSE
     }
 }

@@ -22,7 +22,7 @@ namespace TaM
             get
             {
                 if (CurrentLevel != null) return CurrentLevel.Width;
-                else return 0;
+                return 0;
             }
         }
         public string CurrentLevelName
@@ -30,13 +30,34 @@ namespace TaM
             get
             {
                 if (CurrentLevel != null) return CurrentLevel.Name;
-                else return "No levels loaded";
+                return "No levels loaded";
             }
         }
 
-        public int MoveCount { get; set; }
-        public bool HasMinotaurWon { get; set; }
-        public bool HasTheseusWon { get; set; }
+        public int MoveCount
+        {
+            get
+            {
+                if (CurrentLevel != null) return CurrentLevel.MoveCount;
+                return 0;
+            }
+        }
+        public bool HasMinotaurWon
+        {
+            get
+            {
+                if (CurrentLevel != null) return CurrentLevel.IsTheseusDead();
+                return false;
+            }
+        }
+        public bool HasTheseusWon
+        {
+            get
+            {
+                if (CurrentLevel != null) return CurrentLevel.HasTheseusEscaped();
+                return false;
+            }
+        }
 
         public Game()
         {
@@ -71,14 +92,14 @@ namespace TaM
             return CurrentLevel.WhatIsAt(row, column);
         }
 
-        public void MoveTheseus(object uP)
+        public void MoveTheseus(Directions direction)
         {
-            throw new NotImplementedException();
+            if (CurrentLevel != null) CurrentLevel.MoveTheseus(direction);
         }
 
         public void MoveMinotaur()
         {
-            throw new NotImplementedException();
+            if (CurrentLevel != null) CurrentLevel.MoveMinotaur();
         }
     }
 }

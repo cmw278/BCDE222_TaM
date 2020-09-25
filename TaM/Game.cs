@@ -33,6 +33,11 @@ namespace TaM
                 else return "No levels loaded";
             }
         }
+
+        public int MoveCount { get; set; }
+        public bool HasMinotaurWon { get; set; }
+        public bool HasTheseusWon { get; set; }
+
         public Game()
         {
             AllMyLevels = new List<Level>();
@@ -64,6 +69,16 @@ namespace TaM
         public Square WhatIsAt(int row, int column)
         {
             return CurrentLevel.WhatIsAt(row, column);
+        }
+
+        public void MoveTheseus(object uP)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MoveMinotaur()
+        {
+            throw new NotImplementedException();
         }
     }
 }

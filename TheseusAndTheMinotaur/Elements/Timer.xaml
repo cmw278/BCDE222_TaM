@@ -1,0 +1,33 @@
+﻿<UserControl
+    x:Class="TheseusAndTheMinotaur.Timer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TheseusAndTheMinotaur"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="40"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <local:BooleanToPauseIconConverter x:Key="PauseIconConverter" />
+    </UserControl.Resources>
+
+    <CommandBar DefaultLabelPosition="Right"
+                HorizontalAlignment="Right"
+                Background="Transparent"
+                IsSticky="True">
+        <AppBarButton x:Name="PauseButton"
+                      Icon="{x:Bind IsRunning, Mode=OneWay, Converter={StaticResource PauseIconConverter}}"
+                      Click="PauseButton_Click"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center" />
+        <AppBarElementContainer HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+            <TextBlock x:Name="TimeDisplay"
+                       Text="{x:Bind Time, Mode=OneWay}"
+                       TextAlignment="End"
+                       FontSize="24"
+                       MinWidth="88"
+                       Padding="12,0" />
+        </AppBarElementContainer>
+    </CommandBar>
+</UserControl>

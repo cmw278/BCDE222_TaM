@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace TheseusAndTheMinotaur
 {
@@ -23,73 +10,137 @@ namespace TheseusAndTheMinotaur
     /// </summary>
     public sealed partial class Core : Page, INotifyPropertyChanged
     {
+        public static readonly GameController MyGameController = new GameController();
+
         public Core()
         {
             this.InitializeComponent();
-            AttachPropertyChangeObserver();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            CoreNavigationFrame.Navigate(typeof(LevelSelector), MyGameController);
         }
 
         #region Public properties
-        public bool TimerActive
+        public bool TimerIsRunning => LevelTimer.IsRunning;
+
+        public bool ShowBackButton = false;
+
+        private string _PageTitle;
+        public string PageTitle
         {
-            get { return LevelTimer.IsRunning; }
+            get => _PageTitle;
+            set
+            {
+                if (UpdateValue(ref _PageTitle, value)) NotifyChange();
+            }
+        }
+
+        private bool _TimerIsEnabled;
+        public bool TimerIsEnabled
+        {
+            get => _TimerIsEnabled;
+            set
+            {
+                if (UpdateValue(ref _TimerIsEnabled, value)) NotifyChange();
+            }
+        }
+
+        private bool _TimerIsVisible;
+        public bool TimerIsVisible
+        {
+            get => _TimerIsVisible;
+            set
+            {
+                if (UpdateValue(ref _TimerIsVisible, value)) NotifyChange();
+            }
         }
         #endregion
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        /// <summary>
-        /// Attach transparent notifier to any observable properties
-        /// </summary>
-        private void AttachPropertyChangeObserver()
-        {
-            LevelTimer.PropertyChanged += TransparentPropertyChangeNotifier;
-        }
-
-        private void NotifyChange(string propertyName = null)
+        private void NotifyChange([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
-        /// Transparent PropertyChange handler to propogate observable properties to any observers of this object
+        /// Update a referenced variable, but only if the new value is different.
         /// </summary>
-        private void TransparentPropertyChangeNotifier(object sender, PropertyChangedEventArgs eventArgs)
+        /// <param name="old">A reference to a variable</param>
+        /// <param name="_new">The new value to be compared and applied</param>
+        /// <returns>A boolean indicating whether the variable was changed.</returns>
+        private bool UpdateValue<T>(ref T old, T _new)
         {
-            System.Reflection.PropertyInfo[] myProperties = typeof(Core).GetProperties();
-            if (myProperties.Any((property) => eventArgs.PropertyName == property.Name))
-            {
-                NotifyChange(eventArgs.PropertyName);
-            }
-            else
-            {
-                NotifyTranslater(sender, eventArgs);
-            }
-        }
-
-        /// <summary>
-        /// PropertyChange translater to propogate observable properties to any observers of this object
-        /// </summary>
-        private void NotifyTranslater(object sender, PropertyChangedEventArgs eventArgs)
-        {
-            if (sender is Timer)
-            {
-                switch (eventArgs.PropertyName)
-                {
-                    case "IsRunning":
-                        NotifyChange("TimerActive");
-                        break;
-                    default:
-                        break;
-                }
-            }
+            if (old != null && old.Equals(_new)) return false;
+            old = _new;
+            return true;
         }
         #endregion
 
+        #region Navigation
+
         private void CoreNavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-            throw new NotImplementedException();
+            if (CoreNavigationFrame.CanGoBack) CoreNavigationFrame.GoBack();
         }
+
+        private void LevelSelector_LevelSelected(object sender, LevelSelectedEventArgs e)
+        {
+            MyGameController.LevelName = e.TargetLevel;
+            CoreNavigationFrame.Navigate(typeof(LevelPlayer), MyGameController.Maze);
+        }
+
+        private void CoreNavigationFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            switch (e.Content)
+            {
+                case LevelSelector page:
+                    Navigate_LevelSelector(page);
+                    break;
+                case LevelPlayer page:
+                    Navigate_LevelPlayer(page);
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        private void Navigate_LevelSelector(LevelSelector page)
+        {
+            PageTitle = "Select a level";
+            TimerIsVisible = false;
+            TimerIsEnabled = false;
+            page.LevelSelected += LevelSelector_LevelSelected;
+        }
+
+        private void Navigate_LevelPlayer(LevelPlayer page)
+        {
+            PageTitle = MyGameController.LevelName;
+            TimerIsVisible = true;
+            TimerIsEnabled = true;
+            page.LevelEventTriggered += LevelPlayer_EventTriggered;
+        }
+        #endregion
+
+        #region Gameplay event listeners
+        private void LevelPlayer_EventTriggered(object sender, AbstractLevelEventArgs e)
+        {
+            switch (e)
+            {
+                case LevelPauseEventArgs _:
+                    LevelTimer.Stop();
+                    break;
+                case LevelResetEventArgs reset:
+                    LevelTimer.Reset(reset.StartTime, reset.StartImmediately);
+                    break;
+                default:
+                    return;
+            }
+        }
+        #endregion
     }
 }

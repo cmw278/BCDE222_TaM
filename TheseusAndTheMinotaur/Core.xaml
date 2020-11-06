@@ -10,9 +10,11 @@
         <local:BooleanToBackButtonVisibilityConverter x:Key="BackButtonVisibilityConverter" />
     </Page.Resources>
 
+    <!-- IsBackButtonVisible="{x:Bind TimerActive, Mode=OneWay, Converter={StaticResource BackButtonVisibilityConverter}}" -->
+    
     <NavigationView x:Name="CoreNavigationView"
                     IsSettingsVisible="False"
-                    IsBackButtonVisible="{x:Bind TimerActive, Mode=OneWay, Converter={StaticResource BackButtonVisibilityConverter}}"
+                    IsBackButtonVisible="{x:Bind CoreNavigationFrame.CanGoBack, Mode=OneWay, Converter={StaticResource BackButtonVisibilityConverter}}"
                     IsBackEnabled="True"
                     PaneDisplayMode="Top"
                     SelectionFollowsFocus="Disabled"
@@ -20,14 +22,18 @@
                     BackRequested="CoreNavigationView_BackRequested">
         <NavigationView.PaneHeader>
             <AppBarElementContainer HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
-                <TextBlock x:Name="CorePageTitle" Text="Sample Title" FontWeight="Normal" FontSize="20" Padding="12,0" />
+                <TextBlock x:Name="CorePageTitle" Text="{x:Bind PageTitle, Mode=OneWay}" FontWeight="Normal" FontSize="20" Padding="12,0" />
             </AppBarElementContainer>
         </NavigationView.PaneHeader>
 
         <NavigationView.PaneCustomContent>
-            <local:Timer x:Name="LevelTimer" TimeFormat="Detailed" TimerInterval="32" Visibility="Visible" />
+            <local:Timer x:Name="LevelTimer"
+                         TimeFormat="Default"
+                         TimerInterval="32"
+                         Visibility="{x:Bind TimerIsVisible, Mode=OneWay}"
+                         IsEnabled="{x:Bind TimerIsEnabled, Mode=OneWay}" />
         </NavigationView.PaneCustomContent>
 
-        <Frame x:Name="CoreNavigationFrame" />
+        <Frame x:Name="CoreNavigationFrame" Navigated="CoreNavigationFrame_Navigated" />
     </NavigationView>
 </Page>

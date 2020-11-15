@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="TheseusAndTheMinotaur.LevelPlayer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TheseusAndTheMinotaur"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#8A6737">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="0" Stretch="Uniform"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center">
+            <Canvas x:Name="MazeViewCanvas" Background="#8A6737" Width="{x:Bind CanvasWidth}" Height="{x:Bind CanvasHeight}" Margin="12" />
+        </Viewbox>
+
+        <local:LevelPlayerControlBar x:Name="ControlBar" Grid.Row="1" ControlClicked="LevelControl_Click" />
+    </Grid>
+</Page>

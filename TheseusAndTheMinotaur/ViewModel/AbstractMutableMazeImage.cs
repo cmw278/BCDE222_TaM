@@ -23,6 +23,7 @@ namespace TheseusAndTheMinotaur
         /// </summary>
         public override int Row
         {
+            get => _Row;
             set { if (UpdateValue(ref _Row, value)) NotifyChange(); }
         }
 
@@ -31,6 +32,7 @@ namespace TheseusAndTheMinotaur
         /// </summary>
         public override int Column
         {
+            get => _Column;
             set { if (UpdateValue(ref _Column, value)) NotifyChange(); }
         }
         #endregion

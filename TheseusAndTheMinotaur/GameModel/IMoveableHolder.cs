@@ -12,7 +12,7 @@
 
         int MoveCount { get; }
 
-        void MoveTheseus(Directions direction);
+        bool MoveTheseus(Directions direction);
 
         bool IsTheseusDead();
 

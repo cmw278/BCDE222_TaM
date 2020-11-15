@@ -70,7 +70,7 @@ namespace TaM
             return _MinotaurPosition.Equals(_TheseusPosition);
         }
 
-        public void MoveTheseus(Directions direction)
+        public bool MoveTheseus(Directions direction)
         {
             Point targetPoint = GetTargetPoint(_TheseusPosition, direction);
             Square targetSquare = WhatIsAt(targetPoint.Y, targetPoint.X);
@@ -81,7 +81,9 @@ namespace TaM
                 targetSquare.Theseus = true;
                 _TheseusPosition = targetPoint;
                 Moves.Add(direction);
+                return true;
             }
+            return false;
         }
 
         private Point GetTargetPoint(Point currentPoint, Directions direction)

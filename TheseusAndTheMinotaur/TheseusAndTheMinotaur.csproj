@@ -117,14 +117,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Adapters\AbstractTimeSpanAdapter.cs" />
+    <Compile Include="Adapters\CharacterViewBinding.cs" />
     <Compile Include="Adapters\LongTimeSpanAdapter.cs" />
     <Compile Include="Adapters\DetailedTimeSpanAdapter.cs" />
     <Compile Include="Adapters\DefaultTimeSpanAdapter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Events\AbstractLevelEventArgs.cs" />
-    <Compile Include="Events\LevelPauseEventArgs.cs" />
+    <Compile Include="Events\LevelAction.cs" />
+    <Compile Include="View\LevelPlayerControlBar.xaml.cs">
+      <DependentUpon>LevelPlayerControlBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Events\LevelPlayerEventArgs.cs" />
     <Compile Include="Events\LevelSelectedEventArgs.cs" />
-    <Compile Include="Events\LevelResetEventArgs.cs" />
     <Compile Include="ViewModel\GameController.cs" />
     <Compile Include="GameModel\AbstractSquare.cs" />
     <Compile Include="GameModel\Directions.cs" />
@@ -138,17 +141,17 @@
     <Compile Include="GameModel\Square.cs" />
     <Compile Include="GameModel\Walls.cs" />
     <Compile Include="Interfaces\ITimer.cs" />
-    <Compile Include="Elements\Timer.xaml.cs">
+    <Compile Include="View\Timer.xaml.cs">
       <DependentUpon>Timer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Adapters\TimeSpanFormat.cs" />
     <Compile Include="Adapters\TimeSpanAdapterBuilder.cs" />
     <Compile Include="Adapters\IValueAdapter.cs" />
     <Compile Include="Converters\BooleanToPauseIconConverter.cs" />
-    <Compile Include="Pages\LevelPlayer.xaml.cs">
+    <Compile Include="View\LevelPlayer.xaml.cs">
       <DependentUpon>LevelPlayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LevelSelector.xaml.cs">
+    <Compile Include="View\LevelSelector.xaml.cs">
       <DependentUpon>LevelSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AbstractImmutableMazeImage.cs" />
@@ -179,14 +182,30 @@
     <None Include="TheseusAndTheMinotaur_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\exit_.png" />
+    <Content Include="Assets\minotaur_.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\theseus_.png" />
+    <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -197,15 +216,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Elements\Timer.xaml">
+    <Page Include="View\LevelPlayerControlBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LevelPlayer.xaml">
+    <Page Include="View\Timer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LevelPlayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\LevelSelector.xaml">
+    <Page Include="View\LevelSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

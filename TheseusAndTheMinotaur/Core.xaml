@@ -5,20 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      RequestedTheme="Light">
     <Page.Resources>
         <local:BooleanToBackButtonVisibilityConverter x:Key="BackButtonVisibilityConverter" />
     </Page.Resources>
-
-    <!-- IsBackButtonVisible="{x:Bind TimerActive, Mode=OneWay, Converter={StaticResource BackButtonVisibilityConverter}}" -->
     
     <NavigationView x:Name="CoreNavigationView"
-                    IsSettingsVisible="False"
+                    Style="{StaticResource CoreNavigationViewStyle}"
                     IsBackButtonVisible="{x:Bind CoreNavigationFrame.CanGoBack, Mode=OneWay, Converter={StaticResource BackButtonVisibilityConverter}}"
-                    IsBackEnabled="True"
-                    PaneDisplayMode="Top"
-                    SelectionFollowsFocus="Disabled"
-                    IsTabStop="False"
                     BackRequested="CoreNavigationView_BackRequested">
         <NavigationView.PaneHeader>
             <AppBarElementContainer HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
@@ -27,9 +21,7 @@
         </NavigationView.PaneHeader>
 
         <NavigationView.PaneCustomContent>
-            <local:Timer x:Name="LevelTimer"
-                         TimeFormat="Default"
-                         TimerInterval="32"
+            <local:Timer x:Name="LevelTimer" Style="{StaticResource LevelTimerStyle}"
                          Visibility="{x:Bind TimerIsVisible, Mode=OneWay}"
                          IsEnabled="{x:Bind TimerIsEnabled, Mode=OneWay}" />
         </NavigationView.PaneCustomContent>

@@ -16,7 +16,7 @@
                 HorizontalAlignment="Right"
                 Background="Transparent"
                 IsSticky="True">
-        <AppBarButton x:Name="PauseButton"
+        <AppBarButton x:Name="PauseButton" Style="{StaticResource ControlBarButtonStyle}"
                       Icon="{x:Bind IsRunning, Mode=OneWay, Converter={StaticResource PauseIconConverter}}"
                       Click="PauseButton_Click"
                       HorizontalAlignment="Center"

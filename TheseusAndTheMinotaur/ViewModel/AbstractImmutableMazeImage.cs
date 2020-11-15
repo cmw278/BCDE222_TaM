@@ -6,63 +6,47 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace TheseusAndTheMinotaur
 {
     public abstract class AbstractImmutableMazeImage : AbstractViewModel
     {
         #region Flyweight stuff
-        private static readonly string BackgroundTile;
-        private static readonly string ExitTile;
-        private static readonly string BottomWall;
-        private static readonly string LeftWall;
-        private static readonly string RightWall;
-        private static readonly string TopWall;
-        private static readonly string Theseus;
-        private static readonly string Minotaur;
+        private static readonly BitmapImage Theseus;
+        private static readonly BitmapImage Minotaur;
+        private static readonly BitmapImage Exit;
 
         static AbstractImmutableMazeImage()
         {
-            BackgroundTile =    "[    empty    ]";
-            ExitTile =          "[    exit     ]";
-            BottomWall =        "[ wall_bottom ]";
-            LeftWall =          "[wall_left    ]";
-            RightWall =         "[   wall_right]";
-            TopWall =           "[ wall_top    ]";
-            Theseus =           "[     theseus ]";
-            Minotaur =          "[ minotaur    ]";
+            var baseUri = new Uri("ms-appx:///", UriKind.RelativeOrAbsolute);
+            Theseus = new BitmapImage(new Uri(baseUri, "Assets/theseus_.png"));
+            Minotaur = new BitmapImage(new Uri(baseUri, "Assets/minotaur_.png"));
+            Exit = new BitmapImage(new Uri(baseUri, "Assets/exit_.png"));
         }
 
-        protected string _Image;
+        protected BitmapImage _Image;
 
         private void SetImage(AbstractImmutableMazeImage target)
         {
             switch (target)
             {
-                case EmptyMazeImage image:
-                    image._Image = BackgroundTile;
-                    break;
+                case EmptyMazeImage _:
+                case BottomWallMazeImage _:
+                case LeftWallMazeImage _:
+                case RightWallMazeImage _:
+                case TopWallMazeImage _:
+                    return;
                 case ExitMazeImage image:
-                    image._Image = ExitTile;
-                    break;
-                case BottomWallMazeImage image:
-                    image._Image = BottomWall;
-                    break;
-                case LeftWallMazeImage image:
-                    image._Image = LeftWall;
-                    break;
-                case RightWallMazeImage image:
-                    image._Image = RightWall;
-                    break;
-                case TopWallMazeImage image:
-                    image._Image = TopWall;
-                    break;
+                    image._Image = Exit;
+                    return;
                 case TheseusMazeImage image:
                     image._Image = Theseus;
-                    break;
+                    return;
                 case MinotaurMazeImage image:
                     image._Image = Minotaur;
-                    break;
+                    return;
                 default:
                     throw new NotSupportedException($"{nameof(target)} is not supported at this time");
             }
@@ -80,7 +64,7 @@ namespace TheseusAndTheMinotaur
         }
 
         #region Public properties
-        public string Image { get { return _Image; } }
+        public BitmapImage Image { get { return _Image; } }
 
         /// <summary>
         /// The horizontal position of this MazeImage

@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace TheseusAndTheMinotaur
 {
-    public sealed class LevelPauseEventArgs : AbstractLevelEventArgs { }
+    public enum LevelAction
+    {
+        Move,
+        PauseGame,
+        Reset,
+    }
 }

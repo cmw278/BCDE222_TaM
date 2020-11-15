@@ -92,9 +92,10 @@ namespace TaM
             return CurrentLevel.WhatIsAt(row, column);
         }
 
-        public void MoveTheseus(Directions direction)
+        public bool MoveTheseus(Directions direction)
         {
-            if (CurrentLevel != null) CurrentLevel.MoveTheseus(direction);
+            if (CurrentLevel != null) return CurrentLevel.MoveTheseus(direction);
+            return false;
         }
 
         public void MoveMinotaur()

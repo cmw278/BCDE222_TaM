@@ -6,28 +6,28 @@
     xmlns:muxc="using:Windows.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <DataTemplate x:Key="LevelItem">
             <Button Style="{StaticResource ButtonRevealStyle}"
-                    Background="{StaticResource ButtonBackgroundThemeBrush}"
+                    Background="{StaticResource BrownAcrylic}"
                     Content="{Binding}"
                     Click="LevelItem_Click"
-                    Width="100" Height="100" />
+                    FontSize="48"
+                    Width="250" Height="250" />
         </DataTemplate>
     </Page.Resources>
 
-    <Viewbox Stretch="Uniform">
+    <ScrollViewer>
         <GridView HorizontalAlignment="Center"
                   ItemTemplate="{StaticResource LevelItem}"
                   ItemsSource="{x:Bind LevelNames}">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal" />
+                    <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
         </GridView>
-    </Viewbox>
+    </ScrollViewer>
 </Page>

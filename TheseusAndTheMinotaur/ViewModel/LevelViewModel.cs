@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TaM;
 
-namespace TheseusAndTheMinotaur.ViewModel
+namespace TheseusAndTheMinotaur
 {
-    public class LevelViewModel : AbstractViewModel
+    public class LevelViewModel
     {
         private readonly Game _Game;
         private List<AbstractImmutableMazeImage> _Floor;
@@ -76,7 +76,7 @@ namespace TheseusAndTheMinotaur.ViewModel
         }
         #endregion
 
-        private void Update()
+        public void Update()
         {
             var theseusLocated = false;
             var minotaurLocated = false;

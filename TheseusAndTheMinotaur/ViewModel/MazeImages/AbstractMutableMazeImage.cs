@@ -7,7 +7,7 @@ using TaM;
 
 namespace TheseusAndTheMinotaur
 {
-    public abstract class AbstractMutableMazeImage : AbstractImmutableMazeImage
+    public abstract class AbstractMutableMazeImage : AbstractImmutableLevelTile
     {
         public AbstractMutableMazeImage() : base(0, 0) { }
 

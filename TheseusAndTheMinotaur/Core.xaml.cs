@@ -15,18 +15,6 @@ namespace TheseusAndTheMinotaur
     {
         public static readonly GameController MyGameController = new GameController();
 
-        public Core()
-        {
-            this.InitializeComponent();
-            MyGameController.PropertyChanged += MyGameController_PropertyChanged;
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            CoreNavigationFrame.Navigate(typeof(LevelSelector), MyGameController);
-        }
-
         #region Public properties
         public bool TimerIsRunning => LevelTimer.IsRunning;
 
@@ -62,6 +50,18 @@ namespace TheseusAndTheMinotaur
             }
         }
         #endregion
+
+        public Core()
+        {
+            this.InitializeComponent();
+            MyGameController.PropertyChanged += MyGameController_PropertyChanged;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            CoreNavigationFrame.Navigate(typeof(LevelSelector), MyGameController);
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged = delegate { };

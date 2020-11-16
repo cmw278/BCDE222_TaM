@@ -31,6 +31,7 @@ namespace TheseusAndTheMinotaur
 
         private LevelViewModel Maze { get; set; }
 
+        #region Public properties
         public int CanvasWidth => GetCanvasDimension(Maze.LevelWidth);
         public int CanvasHeight => GetCanvasDimension(Maze.LevelHeight);
 
@@ -47,6 +48,7 @@ namespace TheseusAndTheMinotaur
                 }
             }
         }
+        #endregion
 
         public LevelPlayer()
         {
@@ -84,7 +86,7 @@ namespace TheseusAndTheMinotaur
 
         private int GetCanvasDimension(int multiplier) => (multiplier *(TILE_SIZE + TILE_MARGIN)) + TILE_MARGIN;
 
-        private Border GenerateTile(AbstractImmutableMazeImage source, int targetLayer)
+        private Border GenerateTile(AbstractImmutableLevelTile source, int targetLayer)
         {
             var image = GenerateMazeImage(source);
             var border = new Border()
@@ -99,7 +101,7 @@ namespace TheseusAndTheMinotaur
             return border;
         }
 
-        private Image GenerateMazeImage(AbstractImmutableMazeImage source)
+        private Image GenerateMazeImage(AbstractImmutableLevelTile source)
         {
             if (source.Image != null) source.Image.DecodePixelHeight = TILE_SIZE;
             var image = new Image()
@@ -112,27 +114,27 @@ namespace TheseusAndTheMinotaur
             return image;
         }
 
-        private Brush GetBackground(AbstractImmutableMazeImage source)
+        private Brush GetBackground(AbstractImmutableLevelTile source)
         {
             switch (source)
             {
-                case ExitMazeImage _:
+                case ExitLevelTile _:
                     return new AcrylicBrush()
                     {
                         FallbackColor = MazeColours.SmokyBlack,
                         TintColor = MazeColours.SmokyBlack,
                         TintOpacity = 0.75,
                     };
-                case TopWallMazeImage _:
-                case RightWallMazeImage _:
-                case BottomWallMazeImage _:
-                case LeftWallMazeImage _:
+                case TopWallLevelTile _:
+                case RightWallLevelTile _:
+                case BottomWallLevelTile _:
+                case LeftWallLevelTile _:
                     return new SolidColorBrush()
                     {
                         Color = MazeColours.SmokyBlack,
                     };
-                case MinotaurMazeImage _:
-                case TheseusMazeImage _:
+                case MinotaurLevelTile _:
+                case TheseusLevelTile _:
                     return null;
                 default:
                     return new AcrylicBrush()
@@ -145,22 +147,22 @@ namespace TheseusAndTheMinotaur
             }
         }
 
-        public void SetCanvasPosition(AbstractImmutableMazeImage source, Border border)
+        public void SetCanvasPosition(AbstractImmutableLevelTile source, Border border)
         {
             int verticalOffset = GetCanvasDimension(source.Row);
             int horizontalOffset = GetCanvasDimension(source.Column);
             switch (source)
             {
-                case TopWallMazeImage _:
-                case LeftWallMazeImage _:
+                case TopWallLevelTile _:
+                case LeftWallLevelTile _:
                     horizontalOffset -= TILE_MARGIN;
                     verticalOffset -= TILE_MARGIN;
                     break;
-                case RightWallMazeImage _:
+                case RightWallLevelTile _:
                     horizontalOffset += TILE_SIZE;
                     verticalOffset -= TILE_MARGIN;
                     break;
-                case BottomWallMazeImage _:
+                case BottomWallLevelTile _:
                     horizontalOffset -= TILE_MARGIN;
                     verticalOffset += TILE_SIZE;
                     break;
@@ -187,13 +189,13 @@ namespace TheseusAndTheMinotaur
                 var tile = GenerateTile(source, targetLayer);
                 switch (source)
                 {
-                    case TopWallMazeImage _:
-                    case BottomWallMazeImage _:
+                    case TopWallLevelTile _:
+                    case BottomWallLevelTile _:
                         tile.Height = TILE_MARGIN;
                         tile.Width += TILE_MARGIN * 2;
                         break;
-                    case LeftWallMazeImage _:
-                    case RightWallMazeImage _:
+                    case LeftWallLevelTile _:
+                    case RightWallLevelTile _:
                         tile.Height += TILE_MARGIN * 2;
                         tile.Width = TILE_MARGIN;
                         break;

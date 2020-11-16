@@ -18,6 +18,14 @@ namespace TheseusAndTheMinotaur
 {
     public sealed partial class Timer : UserControl, ITimer, INotifyPropertyChanged
     {
+        #region Public Properties
+        public bool IsRunning
+        {
+            get { return _Timer.IsRunning; }
+            set { _Timer.IsRunning = value; }
+        }
+        #endregion
+
         public Timer()
         {
             this.InitializeComponent();
@@ -26,14 +34,6 @@ namespace TheseusAndTheMinotaur
             SetTimeFormat(TimeSpanFormat.Default);
             AttachPropertyChangeObserver();
         }
-
-        #region Public Properties
-        public bool IsRunning
-        {
-            get { return _Timer.IsRunning; }
-            set { _Timer.IsRunning = value; }
-        }
-        #endregion
 
         #region DependencyProperties
         // https://www.tutorialspoint.com/xaml/xaml_dependency_properties.htm

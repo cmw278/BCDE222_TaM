@@ -22,15 +22,9 @@ namespace TheseusAndTheMinotaur
         }
         #endregion
 
+        #region Public properties
         public readonly LevelViewModel Maze;
 
-        public GameController()
-        {
-            Maze = new LevelViewModel(_Game);
-            Maze.Reset();
-        }
-
-        #region Public properties
         public bool IsFinished => _Game.HasMinotaurWon || _Game.HasTheseusWon;
 
         public bool HasTheseusWon => _Game.HasTheseusWon;
@@ -45,6 +39,12 @@ namespace TheseusAndTheMinotaur
 
         public List<string> LevelList => _Game.LevelNames();
         #endregion
+
+        public GameController()
+        {
+            Maze = new LevelViewModel(_Game);
+            Maze.Reset();
+        }
 
         #region Movement
         public void Move(Directions direction)

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TheseusAndTheMinotaur
 {
-    public sealed class TopWallMazeImage : AbstractImmutableMazeImage
+    public sealed class BottomWallLevelTile : AbstractImmutableLevelTile
     {
-        public TopWallMazeImage(int row, int column) : base(row, column) { }
+        public BottomWallLevelTile(int row, int column) : base(row, column) { }
     }
 }

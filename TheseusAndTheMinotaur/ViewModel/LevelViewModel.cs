@@ -11,10 +11,23 @@ namespace TheseusAndTheMinotaur
     public class LevelViewModel
     {
         private readonly Game _Game;
-        private List<AbstractImmutableMazeImage> _Floor;
-        private List<AbstractImmutableMazeImage> _Walls;
-        private TheseusMazeImage _TheseusImage;
-        private MinotaurMazeImage _MinotaurImage;
+        private List<AbstractImmutableLevelTile> _Floor;
+        private List<AbstractImmutableLevelTile> _Walls;
+        private TheseusLevelTile _TheseusImage;
+        private MinotaurLevelTile _MinotaurImage;
+
+        #region Public properties
+        public int LevelHeight => _Game.LevelHeight;
+
+        public int LevelWidth => _Game.LevelWidth;
+
+        public ImmutableList<AbstractImmutableLevelTile> Floor => _Floor.ToImmutableList();
+
+        public ImmutableList<AbstractImmutableLevelTile> Walls => _Walls.ToImmutableList();
+
+        public ImmutableList<AbstractMutableMazeImage> Characters => new AbstractMutableMazeImage[] { _TheseusImage, _MinotaurImage }.ToImmutableList();
+
+        #endregion
 
         public LevelViewModel(Game game)
         {
@@ -22,26 +35,13 @@ namespace TheseusAndTheMinotaur
             Reset();
         }
 
-        #region Public properties
-        public int LevelHeight => _Game.LevelHeight;
-
-        public int LevelWidth => _Game.LevelWidth;
-        
-        public ImmutableList<AbstractImmutableMazeImage> Floor => _Floor.ToImmutableList();
-
-        public ImmutableList<AbstractImmutableMazeImage> Walls => _Walls.ToImmutableList();
-
-        public ImmutableList<AbstractMutableMazeImage> Characters => new AbstractMutableMazeImage[] { _TheseusImage, _MinotaurImage }.ToImmutableList();
-
-        #endregion
-
         #region Initialization
         public void Reset()
         {
-            _Floor = new List<AbstractImmutableMazeImage>();
-            _Walls = new List<AbstractImmutableMazeImage>();
-            _TheseusImage = new TheseusMazeImage();
-            _MinotaurImage = new MinotaurMazeImage();
+            _Floor = new List<AbstractImmutableLevelTile>();
+            _Walls = new List<AbstractImmutableLevelTile>();
+            _TheseusImage = new TheseusLevelTile();
+            _MinotaurImage = new MinotaurLevelTile();
 
             for (int row = 0; row < _Game.LevelHeight; row++)
             {
@@ -63,16 +63,16 @@ namespace TheseusAndTheMinotaur
 
         private void AddLevelFloor(Square square, int row, int column)
         {
-            var floorItem = square.Exit ? (AbstractImmutableMazeImage)new ExitMazeImage(row, column) : new EmptyMazeImage(row, column);
+            var floorItem = square.Exit ? (AbstractImmutableLevelTile)new ExitLevelTile(row, column) : new EmptyLevelTile(row, column);
             _Floor.Add(floorItem);
         }
 
         private void AddLevelWalls(Square square, int row, int column)
         {
-            if (square.Bottom) _Walls.Add(new BottomWallMazeImage(row, column));
-            if (square.Left) _Walls.Add(new LeftWallMazeImage(row, column));
-            if (square.Right) _Walls.Add(new RightWallMazeImage(row, column));
-            if (square.Top) _Walls.Add(new TopWallMazeImage(row, column));
+            if (square.Bottom) _Walls.Add(new BottomWallLevelTile(row, column));
+            if (square.Left) _Walls.Add(new LeftWallLevelTile(row, column));
+            if (square.Right) _Walls.Add(new RightWallLevelTile(row, column));
+            if (square.Top) _Walls.Add(new TopWallLevelTile(row, column));
         }
         #endregion
 

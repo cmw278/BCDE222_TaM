@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace TheseusAndTheMinotaur
 {
-    public sealed class TheseusMazeImage : AbstractMutableMazeImage { }
+    public sealed class TheseusLevelTile : AbstractMutableMazeImage { }
 }

@@ -22,6 +22,24 @@ namespace TheseusAndTheMinotaur
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public event EventHandler<LevelPlayerEventArgs> ControlClicked = delegate { };
 
+        #region Public properties
+        private int _MoveCount;
+        public int MoveCount
+        {
+            private get => _MoveCount;
+            set
+            {
+                if (value != MoveCount)
+                {
+                    _MoveCount = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MoveCountString"));
+                }
+            }
+        }
+
+        public string MoveCountString => $"{MoveCount} move" + (MoveCount != 1 ? "s" : "");
+        #endregion
+
         public LevelPlayerControlBar()
         {
             this.InitializeComponent();
@@ -54,29 +72,5 @@ namespace TheseusAndTheMinotaur
                     throw new NotImplementedException();
             }
         }
-
-        #region DependencyProperties
-        // https://www.tutorialspoint.com/xaml/xaml_dependency_properties.htm
-        public static DependencyProperty MoveCountProperty =
-            DependencyProperty.Register("MoveCount",
-                                        typeof(int),
-                                        typeof(LevelPlayerControlBar),
-                                        new PropertyMetadata(0));
-
-        public int MoveCount
-        {
-            private get => (int)GetValue(MoveCountProperty);
-            set
-            {
-                if (value != MoveCount)
-                {
-                    SetValue(MoveCountProperty, value);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MoveCountString"));
-                }
-            }
-        }
-
-        private string MoveCountString => $"{MoveCount} move" + (MoveCount != 1 ? "s" : "");
-        #endregion
     }
 }

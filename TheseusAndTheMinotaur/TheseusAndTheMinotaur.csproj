@@ -154,16 +154,16 @@
     <Compile Include="View\LevelSelector.xaml.cs">
       <DependentUpon>LevelSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\AbstractImmutableMazeImage.cs" />
-    <Compile Include="ViewModel\AbstractMutableMazeImage.cs" />
-    <Compile Include="ViewModel\BottomWallMazeImage.cs" />
-    <Compile Include="ViewModel\EmptyMazeImage.cs" />
-    <Compile Include="ViewModel\ExitMazeImage.cs" />
-    <Compile Include="ViewModel\LeftWallMazeImage.cs" />
+    <Compile Include="ViewModel\MazeImages\AbstractImmutableLevelTile.cs" />
+    <Compile Include="ViewModel\MazeImages\AbstractMutableMazeImage.cs" />
+    <Compile Include="ViewModel\MazeImages\BottomWallLevelTile.cs" />
+    <Compile Include="ViewModel\MazeImages\EmptyLevelTile.cs" />
+    <Compile Include="ViewModel\MazeImages\ExitLevelTile.cs" />
+    <Compile Include="ViewModel\MazeImages\LeftWallLevelTile.cs" />
     <Compile Include="ViewModel\LevelViewModel.cs" />
-    <Compile Include="ViewModel\MinotaurMazeImage.cs" />
-    <Compile Include="ViewModel\RightWallMazeImage.cs" />
-    <Compile Include="ViewModel\TheseusMazeImage.cs" />
+    <Compile Include="ViewModel\MazeImages\MinotaurLevelTile.cs" />
+    <Compile Include="ViewModel\MazeImages\RightWallLevelTile.cs" />
+    <Compile Include="ViewModel\MazeImages\TheseusLevelTile.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\AbstractViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -173,7 +173,7 @@
       <DependentUpon>Core.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\TopWallMazeImage.cs" />
+    <Compile Include="ViewModel\MazeImages\TopWallLevelTile.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
